@@ -30,7 +30,7 @@ public class Ship : RigidBody
     public float Battery = 30f;
 
     [Export]
-    float MaxBattery = 50f;
+    public float MaxBattery = 50f;
 
     [Export]
     public float BatteryChargeRate = 2f;
