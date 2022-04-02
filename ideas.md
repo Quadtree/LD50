@@ -9,9 +9,9 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Display of tapped-out planets on minimap
 - Various levels of atmospheric thickness
 - Add in something were if you exit the system you die
 
 # Done
+- Display of tapped-out planets on minimap
 - Fix planet surface issue
