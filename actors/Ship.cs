@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 
 public class Ship : RigidBody
@@ -15,10 +16,18 @@ public class Ship : RigidBody
     float GravityConstant = 500f;
 
     [Export]
-    float DragConstant = 0.25f;
+    float DragConstant = 0.1f;
 
     [Export]
     float ThrustMultiplier = 6f;
+
+    Planet[] Planets = null;
+
+    [Export]
+    public float Fuel = 20f;
+
+    [Export]
+    public float Battery = 100f;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -38,20 +47,37 @@ public class Ship : RigidBody
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
+        EnsurePlanets();
 
+        UpdateFutureMoves();
+
+        Control.x = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left");
+        Control.y = Input.GetActionStrength("move_down") - Input.GetActionStrength("move_up");
     }
 
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
 
-        ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta * ThrustMultiplier);
+        EnsurePlanets();
 
-        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>())
+        Console.WriteLine(Control);
+
+        if (Fuel > 0)
+        {
+            ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta * ThrustMultiplier);
+            Fuel -= delta * new Vector3(Control.x, 0, Control.y).Length();
+        }
+        else
+        {
+            Fuel = 0;
+        }
+
+        foreach (var it in Planets)
         {
             var diff = (it.Translation - Translation);
             var dist = diff.Length();
-            ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant / (dist * dist * dist));
+            ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant * Mass / (dist * dist * dist));
             //Console.WriteLine(dist);
 
             if (dist / it.Scale.x < 1.5f)
@@ -65,7 +91,49 @@ public class Ship : RigidBody
     {
         base._Input(@event);
 
-        Control.x = @event.GetActionStrength("move_right") - @event.GetActionStrength("move_left");
-        Control.y = @event.GetActionStrength("move_down") - @event.GetActionStrength("move_up");
+        //Control.x = @event.GetActionStrength("move_right") - @event.GetActionStrength("move_left");
+        //Control.y = @event.GetActionStrength("move_down") - @event.GetActionStrength("move_up");
+
+        //Control.y = (@event.IsActionPressed("move_down") ? 1 : 0) - (@event.IsActionPressed("move_up") ? 1 : 0);
+    }
+
+    void UpdateFutureMoves()
+    {
+        var pos = this.GetGlobalLocation();
+        var vel = this.LinearVelocity;
+        float delta = 1f / 5f;
+        bool crashed = false;
+
+        for (var i = 0; i < 16; ++i)
+        {
+            if (!crashed)
+            {
+                foreach (var it in Planets)
+                {
+                    var diff = (it.Translation - pos);
+                    var dist = diff.Length();
+                    vel += (diff.Normalized() * delta * GravityConstant / (dist * dist * dist));
+
+                    if (dist / it.Scale.x < 1.5f)
+                    {
+                        vel += (-LinearVelocity * delta * DragConstant) / Mass;
+                    }
+
+                    if (dist / it.Scale.x < 0.8f)
+                    {
+                        crashed = true;
+                    }
+                }
+
+                pos += vel * delta;
+            }
+
+            FutureMoves[i].SetGlobalLocation(pos);
+        }
+    }
+
+    void EnsurePlanets()
+    {
+        if (Planets == null) Planets = GetTree().CurrentScene.FindChildrenByType<Planet>().ToArray();
     }
 }
