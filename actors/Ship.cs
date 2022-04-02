@@ -35,6 +35,8 @@ public class Ship : RigidBody
 
     Camera Cam;
 
+    bool Destroyed = false;
+
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -59,12 +61,24 @@ public class Ship : RigidBody
     void OnCollision(Node other)
     {
         Console.WriteLine("Collision!");
+
+        foreach (var it in this.GetChildren())
+        {
+            if (!(it is Camera))
+            {
+                RemoveChild((Node)it);
+            }
+        }
+
+        Destroyed = true;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         EnsurePlanets();
+
+        if (Destroyed) return;
 
         UpdateFutureMoves();
 
@@ -84,6 +98,13 @@ public class Ship : RigidBody
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
+
+        if (Destroyed)
+        {
+            LinearVelocity = new Vector3(0, 0, 0);
+            AngularVelocity = new Vector3(0, 0, 0);
+            return;
+        }
 
         EnsurePlanets();
 
@@ -116,16 +137,6 @@ public class Ship : RigidBody
                 it.Battery -= gained;
             }
         }
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
-
-        //Control.x = @event.GetActionStrength("move_right") - @event.GetActionStrength("move_left");
-        //Control.y = @event.GetActionStrength("move_down") - @event.GetActionStrength("move_up");
-
-        //Control.y = (@event.IsActionPressed("move_down") ? 1 : 0) - (@event.IsActionPressed("move_up") ? 1 : 0);
     }
 
     void UpdateFutureMoves()
