@@ -28,7 +28,7 @@ public class Ship : RigidBody
     public float Battery = 30f;
 
     [Export]
-    public float MaxBattery = 50f;
+    public float MaxBattery = 500f;
 
     [Export]
     public float BatteryChargeRate = 2f;
@@ -36,6 +36,8 @@ public class Ship : RigidBody
     Camera Cam;
 
     bool Destroyed = false;
+
+    float RespawnTimer = 0;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -58,9 +60,9 @@ public class Ship : RigidBody
         Connect("body_entered", this, nameof(OnCollision));
     }
 
-    void OnCollision(Node other)
+    void Death()
     {
-        Console.WriteLine("Collision!");
+        if (Destroyed) return;
 
         foreach (var it in this.GetChildren())
         {
@@ -73,12 +75,31 @@ public class Ship : RigidBody
         Destroyed = true;
     }
 
+    void OnCollision(Node other)
+    {
+        Console.WriteLine("Collision!");
+
+        Death();
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         EnsurePlanets();
 
-        if (Destroyed) return;
+        if (Destroyed)
+        {
+            RespawnTimer += delta;
+
+            if (RespawnTimer >= 3.5f)
+            {
+                Engine.TimeScale = 1f;
+                GetTree().ChangeScene("res://maps/default.tscn");
+                RespawnTimer = 0;
+            }
+
+            return;
+        }
 
         UpdateFutureMoves();
 
@@ -92,6 +113,11 @@ public class Ship : RigidBody
         if (Fuel <= 0)
         {
             Engine.TimeScale = Mathf.Min(Engine.TimeScale + delta * 0.5f, 10f);
+        }
+
+        if (Battery <= 0)
+        {
+            Death();
         }
     }
 
@@ -170,7 +196,7 @@ public class Ship : RigidBody
 
                         if (dist / it.Scale.x < 1.5f)
                         {
-                            vel += (-LinearVelocity * delta * DragConstant * it.AtmoThickness) / Mass;
+                            vel += (-(LinearVelocity - it.OrbitalVelocity) * delta * DragConstant * it.AtmoThickness) / Mass;
                         }
 
                         if (dist / it.Scale.x < 0.8f)
