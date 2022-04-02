@@ -8,3 +8,10 @@ Most missions would have some kind of twist:
 - Carry: Grab orbiting objects and bring them to the portal.
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
+# TODO
+- Display of tapped-out planets on minimap
+- Various levels of atmospheric thickness
+- Add in something were if you exit the system you die
+
+# Done
+- Fix planet surface issue

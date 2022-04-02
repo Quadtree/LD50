@@ -26,6 +26,7 @@ normal_texture = SubResource( 6 )
 [sub_resource type="SphereShape" id=7]
 
 [node name="RigidBody" type="RigidBody"]
+mode = 3
 mass = 4081.63
 axis_lock_linear_y = true
 script = ExtResource( 1 )

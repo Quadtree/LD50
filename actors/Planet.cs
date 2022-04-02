@@ -59,7 +59,7 @@ public class Planet : RigidBody
         atmo.Scale = new Vector3(AtmoRadius, AtmoRadius, AtmoRadius);
 
         var collisionShape = this.FindChildByName<CollisionShape>("CollisionShape");
-        var sphereShape = (SphereShape)collisionShape.Shape;
+        var sphereShape = new SphereShape();
         sphereShape.Radius = rockyRadius;
         collisionShape.Shape = sphereShape;
 
@@ -99,7 +99,7 @@ public class Planet : RigidBody
             AtmoMat.AlbedoColor = new Color(
                 0,
                 0,
-                Battery / MaxBattery / 140f + (Battery > 0 ? .15f : 0.0f),
+                Battery / MaxBattery * 0.3f + (Battery > 0 ? .15f : 0.0f),
                 0.3f
             );
         }
