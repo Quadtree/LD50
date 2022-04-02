@@ -29,10 +29,11 @@ public class Ship : RigidBody
     [Export]
     public float Battery = 30f;
 
-    float MaxBattery = 0f;
+    [Export]
+    float MaxBattery = 50f;
 
     [Export]
-    public float BatteryChargeRate = 8f;
+    public float BatteryChargeRate = 2f;
 
     Camera Cam;
 
@@ -50,7 +51,7 @@ public class Ship : RigidBody
             FutureMoves[i].Translation = new Vector3(i, 0, 0);
         }
 
-        MaxBattery = Battery;
+        //MaxBattery = Battery;
 
         Cam = this.FindChildByType<Camera>();
     }

@@ -19,7 +19,7 @@ public class Planet : RigidBody
     Material TappedOutMaterial;
 
     [Export]
-    public float Battery = 60f;
+    public float Battery = 30f;
 
     [Export]
     public bool IsSun = false;
@@ -53,7 +53,8 @@ public class Planet : RigidBody
         if (OrbitalPrimary != null)
         {
             OrbitalDistance = (OrbitalPrimary.GetGlobalLocation() - this.GetGlobalLocation()).Length();
-            CurrentOrbitAngle = OrbitalPrimary.GetGlobalLocation().AngleTo(this.GetGlobalLocation());
+            CurrentOrbitAngle = (OrbitalPrimary.GetGlobalLocation() - this.GetGlobalLocation()).Normalized().SignedAngleTo(new Vector3(-1, 0, 0), new Vector3(0, 1, 0));
+            Console.WriteLine(CurrentOrbitAngle);
 
             var gravConst = GetTree().CurrentScene.FindChildByType<Ship>().GravityConstant;
 
