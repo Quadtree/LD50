@@ -28,6 +28,7 @@ normal_texture = SubResource( 6 )
 [node name="RigidBody" type="RigidBody"]
 mode = 3
 mass = 4081.63
+contact_monitor = true
 axis_lock_linear_y = true
 script = ExtResource( 1 )
 TappedOutMaterial = ExtResource( 3 )

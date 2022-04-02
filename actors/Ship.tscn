@@ -12,6 +12,8 @@ size = Vector3( 0.5, 0.5, 0.5 )
 size = Vector2( 0.1, 0.1 )
 
 [node name="RigidBody" type="RigidBody"]
+contacts_reported = 10
+contact_monitor = true
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true

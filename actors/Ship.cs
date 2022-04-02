@@ -52,6 +52,13 @@ public class Ship : RigidBody
         //MaxBattery = Battery;
 
         Cam = this.FindChildByType<Camera>();
+
+        Connect("body_entered", this, nameof(OnCollision));
+    }
+
+    void OnCollision(Node other)
+    {
+        Console.WriteLine("Collision!");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
