@@ -13,7 +13,7 @@ public class Ship : RigidBody
     MeshInstance[] FutureMoves = new MeshInstance[16];
 
     [Export]
-    float GravityConstant = 500f;
+    public float GravityConstant = 0.01f;
 
     [Export]
     float DragConstant = 0.1f;
@@ -92,7 +92,7 @@ public class Ship : RigidBody
         {
             var diff = (it.Translation - Translation);
             var dist = diff.Length();
-            ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant * Mass / (dist * dist * dist));
+            ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant * it.Mass * Mass / (dist * dist));
             //Console.WriteLine(dist);
 
             if (dist / it.Scale.x < 1.5f)
@@ -131,7 +131,7 @@ public class Ship : RigidBody
                 {
                     var diff = (it.Translation - pos);
                     var dist = diff.Length();
-                    vel += (diff.Normalized() * delta * GravityConstant / (dist * dist * dist));
+                    vel += (diff.Normalized() * delta * it.Mass * GravityConstant / (dist * dist));
 
                     if (dist / it.Scale.x < 1.5f)
                     {

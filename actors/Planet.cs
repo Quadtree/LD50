@@ -30,6 +30,11 @@ public class Planet : RigidBody
 
     SpatialMaterial AtmoMat;
 
+    float OrbitalDistance = 0;
+    float OrbitalAngularVelocity = 0;
+    float CurrentOrbitAngle = 0;
+    Planet OrbitalPrimary;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -37,6 +42,23 @@ public class Planet : RigidBody
         AtmoMat = (SpatialMaterial)Atmo.MaterialOverride.Duplicate();
         Atmo.MaterialOverride = AtmoMat;
         MaxBattery = Battery;
+
+        if (!IsSun)
+        {
+            OrbitalPrimary = GetTree().CurrentScene.FindChildByPredicate<Planet>((it) => it.IsSun);
+        }
+
+        if (OrbitalPrimary != null)
+        {
+            OrbitalDistance = (OrbitalPrimary.GetGlobalLocation() - this.GetGlobalLocation()).Length();
+            CurrentOrbitAngle = OrbitalPrimary.GetGlobalLocation().AngleTo(this.GetGlobalLocation());
+
+            var gravConst = GetTree().CurrentScene.FindChildByType<Ship>().GravityConstant;
+
+            float orbitalPeriod = 2 * Mathf.Pi * Mathf.Sqrt((Mathf.Pow(OrbitalDistance, 3) / (gravConst * OrbitalPrimary.Mass)));
+
+            OrbitalAngularVelocity = (Mathf.Pi * 2) / orbitalPeriod;
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,5 +72,12 @@ public class Planet : RigidBody
             Battery / 140f,
             0.3f
         );
+
+        if (OrbitalPrimary != null)
+        {
+            CurrentOrbitAngle += OrbitalAngularVelocity * delta;
+
+            this.SetGlobalLocation(new Vector3(Mathf.Cos(CurrentOrbitAngle) * OrbitalDistance, 0, Mathf.Sin(CurrentOrbitAngle) * OrbitalDistance));
+        }
     }
 }
