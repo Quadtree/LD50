@@ -40,16 +40,19 @@ public class Planet : RigidBody
 
     public float AtmoRadius;
 
+    public float AtmoThickness;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
 
     }
 
-    public void InitPlanetSize(float rockyRadius, float atmoRadius, float orbitalDistance, float orbitalAngle)
+    public void InitPlanetSize(float rockyRadius, float atmoRadius, float orbitalDistance, float orbitalAngle, float atmoThickness)
     {
         this.SetGlobalLocation(new Vector3(Mathf.Cos(orbitalAngle) * orbitalDistance, 0, Mathf.Sin(orbitalAngle) * orbitalDistance));
 
+        AtmoThickness = atmoThickness;
         AtmoRadius = atmoRadius + rockyRadius;
 
         var rocky = this.FindChildByName<MeshInstance>("MeshInstance");
@@ -100,7 +103,7 @@ public class Planet : RigidBody
                 0,
                 0,
                 Battery / MaxBattery * 0.3f + (Battery > 0 ? .15f : 0.0f),
-                0.3f
+                AtmoThickness / 2
             );
         }
 

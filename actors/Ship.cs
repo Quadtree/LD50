@@ -96,7 +96,7 @@ public class Ship : RigidBody
 
             if (dist < it.AtmoRadius)
             {
-                ApplyCentralImpulse(-(LinearVelocity - it.OrbitalVelocity) * delta * DragConstant);
+                ApplyCentralImpulse(-(LinearVelocity - it.OrbitalVelocity) * delta * DragConstant * it.AtmoThickness);
 
                 var gained = Math.Max(Math.Min(Math.Min(delta * LinearVelocity.Length() * BatteryChargeRate, MaxBattery - Battery), it.Battery), 0);
 
@@ -147,7 +147,7 @@ public class Ship : RigidBody
 
                         if (dist / it.Scale.x < 1.5f)
                         {
-                            vel += (-LinearVelocity * delta * DragConstant) / Mass;
+                            vel += (-LinearVelocity * delta * DragConstant * it.AtmoThickness) / Mass;
                         }
 
                         if (dist / it.Scale.x < 0.8f)

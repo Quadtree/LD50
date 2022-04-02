@@ -23,15 +23,17 @@ public class PlanetGenerator : Node
             var radius = Util.random() * 6 + 1;
             var mass = radius * radius * radius;
             var atmoRadius = 3;
+            var atmoThickness = Util.random();
 
             planet.CallDeferred(nameof(Planet.InitPlanetSize),
                 radius,
                 atmoRadius,
                 i * 25 + 20,
-                Util.random() * Mathf.Pi * 2
+                Util.random() * Mathf.Pi * 2,
+                atmoThickness
             );
 
-            var atmoMass = (Mathf.Pow(radius + atmoRadius, 3) - Mathf.Pow(radius, 3)) / 4;
+            var atmoMass = (Mathf.Pow(radius + atmoRadius, 3) - Mathf.Pow(radius, 3)) * atmoThickness;
 
             planet.Battery = atmoMass * (Util.random() * 0.5f + 0.5f);
             planet.MaxBattery = atmoMass;
