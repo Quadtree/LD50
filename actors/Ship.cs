@@ -1,7 +1,7 @@
-using Godot;
 using System;
+using Godot;
 
-public class Ship : Spatial
+public class Ship : RigidBody
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -17,5 +17,12 @@ public class Ship : Spatial
     public override void _Process(float delta)
     {
 
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        base._PhysicsProcess(delta);
+
+        ApplyImpulse(new Vector3(0, 0, 0), new Vector3(-1, 0, 0) * delta);
     }
 }
