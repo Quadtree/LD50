@@ -96,7 +96,7 @@ public class Ship : RigidBody
 
             if (dist < it.AtmoRadius)
             {
-                ApplyCentralImpulse(-LinearVelocity * delta * DragConstant);
+                ApplyCentralImpulse(-(LinearVelocity - it.OrbitalVelocity) * delta * DragConstant);
 
                 var gained = Math.Max(Math.Min(Math.Min(delta * LinearVelocity.Length() * BatteryChargeRate, MaxBattery - Battery), it.Battery), 0);
 
