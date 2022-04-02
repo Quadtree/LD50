@@ -24,7 +24,8 @@ public class Planet : RigidBody
     [Export]
     public bool IsSun = false;
 
-    float MaxBattery;
+    public float MaxBattery;
+
 
     MeshInstance Atmo;
 
@@ -98,7 +99,7 @@ public class Planet : RigidBody
             AtmoMat.AlbedoColor = new Color(
                 0,
                 0,
-                Battery / 4000f * Mass / 140f + (Battery > 0 ? .15f : 0.0f),
+                Battery / MaxBattery / 140f + (Battery > 0 ? .15f : 0.0f),
                 0.3f
             );
         }
