@@ -21,8 +21,6 @@ public class Ship : RigidBody
     [Export]
     float ThrustMultiplier = 6f;
 
-    Planet[] Planets = null;
-
     [Export]
     public float Fuel = 20f;
 
@@ -89,14 +87,14 @@ public class Ship : RigidBody
             Fuel = 0;
         }
 
-        foreach (var it in Planets)
+        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>())
         {
             var diff = (it.Translation - Translation);
             var dist = diff.Length();
             ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant * it.Mass * Mass / (dist * dist));
             //Console.WriteLine(dist);
 
-            if (dist / it.Scale.x < 1.5f)
+            if (dist < it.AtmoRadius)
             {
                 ApplyCentralImpulse(-LinearVelocity * delta * DragConstant);
 
@@ -125,7 +123,9 @@ public class Ship : RigidBody
         float delta = 1f / 5f;
         bool crashed = false;
 
-        var nearestPlanet = Planets.MinBy(it => (int)it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation()));
+        var planets = GetTree().CurrentScene.FindChildrenByType<Planet>();
+
+        var nearestPlanet = planets.MinBy(it => (int)it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation()));
         //Console.WriteLine($"{nearestPlanet.OrbitalVelocity} {vel}");
 
         vel -= nearestPlanet.OrbitalVelocity;
@@ -134,7 +134,7 @@ public class Ship : RigidBody
         {
             if (!crashed)
             {
-                foreach (var it in Planets)
+                foreach (var it in planets)
                 {
                     var diff = (it.Translation - pos);
                     var dist = diff.Length();
@@ -160,6 +160,6 @@ public class Ship : RigidBody
 
     void EnsurePlanets()
     {
-        if (Planets == null) Planets = GetTree().CurrentScene.FindChildrenByType<Planet>().ToArray();
+        //if (Planets == null) Planets = GetTree().CurrentScene.FindChildrenByType<Planet>().ToArray();
     }
 }

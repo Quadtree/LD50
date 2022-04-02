@@ -37,11 +37,30 @@ public class Planet : RigidBody
 
     public Vector3 OrbitalVelocity;
 
+    public float AtmoRadius;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+
+    }
+
+    public void InitPlanetSize(float rockyRadius, float atmoRadius, float orbitalDistance, float orbitalAngle)
+    {
+        this.SetGlobalLocation(new Vector3(Mathf.Cos(orbitalAngle) * orbitalDistance, 0, Mathf.Sin(orbitalAngle) * orbitalDistance));
+
+        AtmoRadius = atmoRadius + rockyRadius;
+
+        var rocky = this.FindChildByName<MeshInstance>("MeshInstance");
+        rocky.Scale = new Vector3(rockyRadius, rockyRadius, rockyRadius);
+
+        var atmo = this.FindChildByName<MeshInstance>("MeshInstance2");
+        atmo.Scale = new Vector3(AtmoRadius, AtmoRadius, AtmoRadius);
+
+
         Atmo = this.FindChildByName<MeshInstance>("MeshInstance2");
         AtmoMat = (SpatialMaterial)Atmo.MaterialOverride.Duplicate();
+        if (AtmoMat == null) throw new Exception("We must have an AtmoMat");
         Atmo.MaterialOverride = AtmoMat;
         MaxBattery = Battery;
 
@@ -69,12 +88,15 @@ public class Planet : RigidBody
     {
         Battery = Math.Max(0, Battery);
 
-        AtmoMat.AlbedoColor = new Color(
-            0,
-            0,
-            Battery / 140f + (Battery > 0 ? .15f : 0.0f),
-            0.3f
-        );
+        if (AtmoMat != null)
+        {
+            AtmoMat.AlbedoColor = new Color(
+                0,
+                0,
+                Battery / 140f + (Battery > 0 ? .15f : 0.0f),
+                0.3f
+            );
+        }
 
         if (OrbitalPrimary != null)
         {
