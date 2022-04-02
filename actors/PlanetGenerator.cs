@@ -31,7 +31,7 @@ public class PlanetGenerator : Node
                 Util.random() * Mathf.Pi * 2
             );
 
-            var atmoMass = (Mathf.Pow(radius + atmoRadius, 3) - Mathf.Pow(radius, 3)) / 8;
+            var atmoMass = (Mathf.Pow(radius + atmoRadius, 3) - Mathf.Pow(radius, 3)) / 4;
 
             planet.Battery = atmoMass * (Util.random() * 0.5f + 0.5f);
             planet.MaxBattery = atmoMass;

@@ -40,6 +40,11 @@ public class Minimap : Control
             {
                 var pos = it.Key.GetGlobalLocation();
                 it.Value.RectPosition = new Vector2(pos.x + 150, pos.z + 150);
+
+                if (it.Key is Planet && !((Planet)it.Key).IsSun && ((Planet)it.Key).Battery <= 0)
+                {
+                    it.Value.Modulate = new Color(0, 0, 0, 1);
+                }
             }
         }
     }
