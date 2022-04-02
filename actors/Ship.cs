@@ -123,6 +123,9 @@ public class Ship : RigidBody
         float delta = 1f / 5f;
         bool crashed = false;
 
+        var substeps = 12;
+        delta /= substeps;
+
         var planets = GetTree().CurrentScene.FindChildrenByType<Planet>();
 
         var nearestPlanet = planets.MinBy(it => (int)it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation()));
@@ -134,24 +137,27 @@ public class Ship : RigidBody
         {
             if (!crashed)
             {
-                foreach (var it in planets)
+                for (int j = 0; j < substeps; ++j)
                 {
-                    var diff = (it.Translation - pos);
-                    var dist = diff.Length();
-                    vel += (diff.Normalized() * delta * it.Mass * GravityConstant / (dist * dist));
-
-                    if (dist / it.Scale.x < 1.5f)
+                    foreach (var it in planets)
                     {
-                        vel += (-LinearVelocity * delta * DragConstant) / Mass;
+                        var diff = (it.Translation - pos);
+                        var dist = diff.Length();
+                        vel += (diff.Normalized() * delta * it.Mass * GravityConstant / (dist * dist));
+
+                        if (dist / it.Scale.x < 1.5f)
+                        {
+                            vel += (-LinearVelocity * delta * DragConstant) / Mass;
+                        }
+
+                        if (dist / it.Scale.x < 0.8f)
+                        {
+                            crashed = true;
+                        }
                     }
 
-                    if (dist / it.Scale.x < 0.8f)
-                    {
-                        crashed = true;
-                    }
+                    pos += vel * delta;
                 }
-
-                pos += vel * delta;
             }
 
             FutureMoves[i].SetGlobalLocation(pos);
