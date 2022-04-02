@@ -7,11 +7,16 @@
 [node name="Main" type="Spatial"]
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 65.2899, 0, 0 )
 
 [node name="Ship" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5853, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.8752, 0, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="InGameUI" parent="CanvasLayer" instance=ExtResource( 3 )]
+
+[node name="Sun" parent="." instance=ExtResource( 1 )]
+mass = 50000.0
+Battery = 0.0
+IsSun = true

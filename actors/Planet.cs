@@ -7,11 +7,22 @@ public class Planet : RigidBody
     // private int a = 2;
     // private string b = "text";
 
+    // oribtal velocity formula
+    // v=(2*pi*r)/T
+
+    // orbital period formula
+    // T=2*pi*sqrt((a^3) / (G*M))
+
+
+
     [Export]
     Material TappedOutMaterial;
 
     [Export]
     public float Battery = 60f;
+
+    [Export]
+    public bool IsSun = false;
 
     float MaxBattery;
 
