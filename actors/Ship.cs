@@ -99,7 +99,8 @@ public class Ship : RigidBody
             {
                 ApplyCentralImpulse(-LinearVelocity * delta * DragConstant);
 
-                var gained = Math.Min(delta * LinearVelocity.Length() * BatteryChargeRate, MaxBattery - Battery);
+                var gained = Math.Max(Math.Min(Math.Min(delta * LinearVelocity.Length() * BatteryChargeRate, MaxBattery - Battery), it.Battery), 0);
+
                 Battery += gained;
                 it.Battery -= gained;
             }
@@ -122,6 +123,11 @@ public class Ship : RigidBody
         var vel = this.LinearVelocity;
         float delta = 1f / 5f;
         bool crashed = false;
+
+        var nearestPlanet = Planets.MinBy(it => (int)it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation()));
+        //Console.WriteLine($"{nearestPlanet.OrbitalVelocity} {vel}");
+
+        vel -= nearestPlanet.OrbitalVelocity;
 
         for (var i = 0; i < 16; ++i)
         {

@@ -35,6 +35,8 @@ public class Planet : RigidBody
     float CurrentOrbitAngle = 0;
     Planet OrbitalPrimary;
 
+    public Vector3 OrbitalVelocity;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -69,7 +71,7 @@ public class Planet : RigidBody
         AtmoMat.AlbedoColor = new Color(
             0,
             0,
-            Battery / 140f,
+            Battery / 140f + (Battery > 0 ? .15f : 0.0f),
             0.3f
         );
 
@@ -77,7 +79,11 @@ public class Planet : RigidBody
         {
             CurrentOrbitAngle += OrbitalAngularVelocity * delta;
 
+            var oldPos = this.GetGlobalLocation();
+
             this.SetGlobalLocation(new Vector3(Mathf.Cos(CurrentOrbitAngle) * OrbitalDistance, 0, Mathf.Sin(CurrentOrbitAngle) * OrbitalDistance));
+
+            OrbitalVelocity = (this.GetGlobalLocation() - oldPos) / delta;
         }
     }
 }
