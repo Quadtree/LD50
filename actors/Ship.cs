@@ -11,6 +11,16 @@ public class Ship : RigidBody
 
     MeshInstance[] FutureMoves = new MeshInstance[16];
 
+    [Export]
+    float GravityConstant = 500f;
+
+    [Export]
+    float DragConstant = 0.25f;
+
+    [Export]
+    float ThrustMultiplier = 6f;
+
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -35,18 +45,18 @@ public class Ship : RigidBody
     {
         base._PhysicsProcess(delta);
 
-        ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta * 6f);
+        ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta * ThrustMultiplier);
 
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>())
         {
             var diff = (it.Translation - Translation);
             var dist = diff.Length();
-            ApplyCentralImpulse(diff.Normalized() * delta * 500f / (dist * dist * dist));
+            ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant / (dist * dist * dist));
             //Console.WriteLine(dist);
 
             if (dist / it.Scale.x < 1.5f)
             {
-                ApplyCentralImpulse(-LinearVelocity * delta * 0.25f);
+                ApplyCentralImpulse(-LinearVelocity * delta * DragConstant);
             }
         }
     }
