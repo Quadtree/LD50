@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public class Planet : Spatial
+public class Planet : RigidBody
 {
     // Declare member variables here. Examples:
     // private int a = 2;

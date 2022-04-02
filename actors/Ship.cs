@@ -25,13 +25,13 @@ public class Ship : RigidBody
     {
         base._PhysicsProcess(delta);
 
-        ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta);
+        ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta * 3f);
 
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>())
         {
             var diff = (it.Translation - Translation);
             var dist = diff.Length();
-            ApplyCentralImpulse(diff.Normalized() * delta * 1000f / (dist * dist * dist));
+            ApplyCentralImpulse(diff.Normalized() * delta * 500f / (dist * dist * dist));
         }
     }
 
