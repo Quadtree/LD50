@@ -70,7 +70,7 @@ public class Ship : RigidBody
 
         EnsurePlanets();
 
-        Console.WriteLine(Control);
+        //Console.WriteLine(Control);
 
         if (Fuel > 0)
         {
@@ -93,8 +93,9 @@ public class Ship : RigidBody
             {
                 ApplyCentralImpulse(-LinearVelocity * delta * DragConstant);
 
-                Battery += delta * LinearVelocity.Length() * BatteryChargeRate;
-                if (Battery > MaxBattery) Battery = MaxBattery;
+                var gained = Math.Min(delta * LinearVelocity.Length() * BatteryChargeRate, MaxBattery - Battery);
+                Battery += delta * gained;
+                it.Battery -= gained;
             }
         }
     }

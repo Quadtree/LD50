@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/Planet.cs" type="Script" id=1]
+[ext_resource path="res://materials/PlanetAtmosphereFull.tres" type="Material" id=2]
+[ext_resource path="res://materials/PlanetAtmosphereEmpty.tres" type="Material" id=3]
 
 [sub_resource type="SphereMesh" id=1]
 
@@ -21,17 +23,13 @@ normal_enabled = true
 normal_scale = 1.0
 normal_texture = SubResource( 6 )
 
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0, 0.0156863, 0.388235, 0.2 )
-proximity_fade_enable = true
-proximity_fade_distance = 2.0
-
 [sub_resource type="SphereShape" id=7]
 
 [node name="RigidBody" type="RigidBody"]
 mass = 4081.63
 axis_lock_linear_y = true
 script = ExtResource( 1 )
+TappedOutMaterial = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
@@ -44,7 +42,7 @@ transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 skeleton = NodePath("")
-material/0 = SubResource( 4 )
+material/0 = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 7 )
