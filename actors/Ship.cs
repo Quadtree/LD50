@@ -9,14 +9,20 @@ public class Ship : RigidBody
 
     Vector2 Control;
 
-    MultiMeshInstance FutureMove;
+    MeshInstance[] FutureMoves = new MeshInstance[16];
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        FutureMove = this.FindChildByName<MultiMeshInstance>("FutureMove");
+        FutureMoves[0] = this.FindChildByName<MeshInstance>("FutureMove0");
 
-        FutureMove.inst
+        for (var i = 1; i < FutureMoves.Length; ++i)
+        {
+            FutureMoves[i] = (MeshInstance)FutureMoves[0].Duplicate();
+            AddChild(FutureMoves[i]);
+
+            FutureMoves[i].Translation = new Vector3(i, 0, 0);
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
