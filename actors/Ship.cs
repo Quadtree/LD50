@@ -26,6 +26,13 @@ public class Ship : RigidBody
         base._PhysicsProcess(delta);
 
         ApplyImpulse(new Vector3(0, 0, 0), new Vector3(Control.x, 0, Control.y) * delta);
+
+        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>())
+        {
+            var diff = (it.Translation - Translation);
+            var dist = diff.Length();
+            ApplyCentralImpulse(diff.Normalized() * delta * 1000f / (dist * dist * dist));
+        }
     }
 
     public override void _Input(InputEvent @event)
