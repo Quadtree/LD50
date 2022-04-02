@@ -20,12 +20,18 @@ public class PlanetGenerator : Node
 
             GetTree().CurrentScene.AddChild(planet);
 
+            var radius = Util.random() * 6 + 1;
+            var mass = radius * radius * radius;
+
             planet.CallDeferred(nameof(Planet.InitPlanetSize),
-                Util.random() * 6 + 1,
-                Util.random() * 2 + 0.5f,
+                radius,
+                Util.random() * 3,
                 i * 25 + 20,
                 Util.random() * Mathf.Pi * 2
             );
+
+            planet.Battery = mass;
+            planet.Mass = mass * 150;
         }
     }
 }

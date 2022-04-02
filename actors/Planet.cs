@@ -57,6 +57,11 @@ public class Planet : RigidBody
         var atmo = this.FindChildByName<MeshInstance>("MeshInstance2");
         atmo.Scale = new Vector3(AtmoRadius, AtmoRadius, AtmoRadius);
 
+        var collisionShape = this.FindChildByName<CollisionShape>("CollisionShape");
+        var sphereShape = (SphereShape)collisionShape.Shape;
+        sphereShape.Radius = rockyRadius;
+        collisionShape.Shape = sphereShape;
+
 
         Atmo = this.FindChildByName<MeshInstance>("MeshInstance2");
         AtmoMat = (SpatialMaterial)Atmo.MaterialOverride.Duplicate();
@@ -93,7 +98,7 @@ public class Planet : RigidBody
             AtmoMat.AlbedoColor = new Color(
                 0,
                 0,
-                Battery / 140f + (Battery > 0 ? .15f : 0.0f),
+                Battery / 4000f * Mass / 140f + (Battery > 0 ? .15f : 0.0f),
                 0.3f
             );
         }
