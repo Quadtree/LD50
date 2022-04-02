@@ -90,6 +90,8 @@ public class Planet : RigidBody
 
             OrbitalAngularVelocity = (Mathf.Pi * 2) / orbitalPeriod;
         }
+
+        Engine.TimeScale = 1f;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

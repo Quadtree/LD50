@@ -16,13 +16,13 @@ public class Ship : RigidBody
     public float GravityConstant = 0.01f;
 
     [Export]
-    float DragConstant = 0.1f;
+    float DragConstant = 0.3f;
 
     [Export]
     float ThrustMultiplier = 6f;
 
     [Export]
-    public float Fuel = 20f;
+    public float Fuel = 10f;
 
     [Export]
     public float Battery = 30f;
@@ -67,6 +67,11 @@ public class Ship : RigidBody
         Battery -= delta;
 
         Cam.LookAt(this.GetGlobalLocation(), new Vector3(0, 0, -1));
+
+        if (Fuel <= 0)
+        {
+            Engine.TimeScale = Mathf.Min(Engine.TimeScale + delta * 0.5f, 10f);
+        }
     }
 
     public override void _PhysicsProcess(float delta)
