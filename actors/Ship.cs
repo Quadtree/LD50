@@ -27,7 +27,12 @@ public class Ship : RigidBody
     public float Fuel = 20f;
 
     [Export]
-    public float Battery = 100f;
+    public float Battery = 30f;
+
+    float MaxBattery = 0f;
+
+    [Export]
+    public float BatteryChargeRate = 8f;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -42,6 +47,8 @@ public class Ship : RigidBody
 
             FutureMoves[i].Translation = new Vector3(i, 0, 0);
         }
+
+        MaxBattery = Battery;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,6 +60,8 @@ public class Ship : RigidBody
 
         Control.x = Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left");
         Control.y = Input.GetActionStrength("move_down") - Input.GetActionStrength("move_up");
+
+        Battery -= delta;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -83,6 +92,9 @@ public class Ship : RigidBody
             if (dist / it.Scale.x < 1.5f)
             {
                 ApplyCentralImpulse(-LinearVelocity * delta * DragConstant);
+
+                Battery += delta * LinearVelocity.Length() * BatteryChargeRate;
+                if (Battery > MaxBattery) Battery = MaxBattery;
             }
         }
     }
