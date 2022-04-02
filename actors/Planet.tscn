@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=2]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="Skin" id=2]
+
+[sub_resource type="OpenSimplexNoise" id=5]
+period = 16.8
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+as_normalmap = true
+bump_strength = 21.3
+noise = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.329412, 0.329412, 0.329412, 1 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = SubResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0, 0.0156863, 0.388235, 0.2 )
+proximity_fade_enable = true
+proximity_fade_distance = 2.0
+
+[node name="Planet" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+skin = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0 )
+mesh = SubResource( 1 )
+skin = SubResource( 2 )
+material/0 = SubResource( 4 )
