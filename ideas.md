@@ -9,7 +9,6 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Multicolor planets
 - Sound
 - Music
 - Different mission types
@@ -28,3 +27,4 @@ Most missions would have some kind of twist:
 - Defeat message?
 - Final fonts
 - Help dialog
+- Multicolor planets

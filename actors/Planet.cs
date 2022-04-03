@@ -53,7 +53,23 @@ public class Planet : RigidBody
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if (RockyOverrideMaterial != null) this.FindChildByName<MeshInstance>("MeshInstance").MaterialOverride = RockyOverrideMaterial;
+        if (RockyOverrideMaterial != null)
+        {
+            this.FindChildByName<MeshInstance>("MeshInstance").MaterialOverride = RockyOverrideMaterial;
+        }
+        else
+        {
+            var mi = this.FindChildByName<MeshInstance>("MeshInstance");
+
+            var oldMat = (SpatialMaterial)mi.GetSurfaceMaterial(0).Duplicate();
+            oldMat.AlbedoColor = new Color(
+                Util.random() * 0.5f + 0.5f,
+                Util.random() * 0.5f + 0.5f,
+                Util.random() * 0.5f + 0.5f,
+                1.0f
+            );
+            mi.MaterialOverride = oldMat;
+        }
 
         if (IsSun)
         {
