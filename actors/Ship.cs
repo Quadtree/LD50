@@ -22,7 +22,7 @@ public class Ship : RigidBody
     float ThrustMultiplier = 6f;
 
     [Export]
-    public float Fuel = 10f;
+    public float Fuel = 15f;
 
     [Export]
     public float Battery = 30f;
@@ -38,6 +38,8 @@ public class Ship : RigidBody
     bool Destroyed = false;
 
     float RespawnTimer = 0;
+
+    public float Score;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -100,6 +102,8 @@ public class Ship : RigidBody
 
             return;
         }
+
+        Score += delta;
 
         UpdateFutureMoves();
 
