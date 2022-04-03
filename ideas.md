@@ -9,8 +9,6 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Victory screen
-- Defeat message?
 - Final fonts
 - Sound
 - Music
@@ -26,3 +24,5 @@ Most missions would have some kind of twist:
 - Background starfield
 - Score keeping
 - Title screen
+- Victory screen
+- Defeat message?

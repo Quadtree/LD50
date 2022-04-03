@@ -94,11 +94,16 @@ public class Ship : RigidBody
             Engine.TimeScale = 1f;
             RespawnTimer += delta;
 
-            if (RespawnTimer >= 3.5f)
+            if (RespawnTimer >= 1.5f && !GetTree().CurrentScene.FindChildByName<PopupDialog>("GameOverDialog").Visible)
+            {
+                GetTree().CurrentScene.FindChildByName<PopupDialog>("GameOverDialog").PopupCentered();
+            }
+
+            /*if (RespawnTimer >= 3.5f)
             {
                 GetTree().ChangeScene("res://maps/default.tscn");
                 RespawnTimer = 0;
-            }
+            }*/
 
             return;
         }
