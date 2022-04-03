@@ -13,6 +13,8 @@ flags_unshaded = true
 albedo_color = Color( 1, 0.352941, 0.352941, 1 )
 
 [node name="RigidBody" type="RigidBody"]
+contacts_reported = 10
+contact_monitor = true
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true

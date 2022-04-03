@@ -59,7 +59,7 @@ public class Ship : RigidBody
         Connect("body_entered", this, nameof(OnCollision));
     }
 
-    void Death()
+    public void Death()
     {
         if (Destroyed) return;
 

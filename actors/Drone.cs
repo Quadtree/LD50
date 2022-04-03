@@ -5,7 +5,7 @@ public class Drone : RigidBody
 {
     public override void _Ready()
     {
-
+        Connect("body_entered", this, nameof(OnCollision));
     }
 
     public override void _Process(float delta)
@@ -31,5 +31,15 @@ public class Drone : RigidBody
                 ApplyCentralImpulse(thrustVector);
             }
         }
+    }
+
+    void OnCollision(Node other)
+    {
+        if (other is Ship)
+        {
+            ((Ship)other).Death();
+        }
+
+        QueueFree();
     }
 }
