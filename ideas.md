@@ -9,9 +9,9 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
+- Different mission types
 - Sound
 - Music
-- Different mission types
 - Explosion on death
 
 # Done
