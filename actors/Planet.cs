@@ -42,6 +42,7 @@ public class Planet : RigidBody
 
     public float AtmoRadius;
 
+    [Export]
     public float AtmoThickness;
 
     public float RotationRate = Util.random();
@@ -53,6 +54,11 @@ public class Planet : RigidBody
     public override void _Ready()
     {
         if (RockyOverrideMaterial != null) this.FindChildByName<MeshInstance>("MeshInstance").MaterialOverride = RockyOverrideMaterial;
+
+        if (IsSun)
+        {
+            CallDeferred(nameof(InitPlanetSize), 10, 0, 0, 0, 0);
+        }
     }
 
     public void InitPlanetSize(float rockyRadius, float atmoRadius, float orbitalDistance, float orbitalAngle, float atmoThickness)
