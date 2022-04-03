@@ -7,7 +7,7 @@ public class DefeatDialog : PopupDialog
     {
         base._Input(@event);
 
-        if (@event is InputEventMouseButton)
+        if (@event is InputEventMouseButton && Visible)
         {
             GetTree().ChangeScene("res://maps/default.tscn");
         }

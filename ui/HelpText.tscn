@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=1]
+
+[node name="Label3" type="Label"]
+anchor_left = 0.2
+anchor_top = 0.55
+anchor_right = 0.8
+anchor_bottom = 0.795
+custom_fonts/font = ExtResource( 1 )
+text = "You control a surveying probe surveying a uncharted system. Try to delay the inevitable dying of your battery by collecting trace gasses from planets with blue atmospheres, but don't waste all your fuel!
+
+Controls:
+F2 - Show this help
+WASD/Arrow Keys - Thrust
+
+Click anywhere to continue."
+align = 1
+valign = 1
+autowrap = true

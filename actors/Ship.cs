@@ -89,6 +89,8 @@ public class Ship : RigidBody
     {
         EnsurePlanets();
 
+        Cam.LookAt(this.GetGlobalLocation(), new Vector3(0, 0, -1));
+
         if (Destroyed)
         {
             Engine.TimeScale = 1f;
@@ -116,8 +118,6 @@ public class Ship : RigidBody
         Control.y = Input.GetActionStrength("move_down") - Input.GetActionStrength("move_up");
 
         Battery -= delta;
-
-        Cam.LookAt(this.GetGlobalLocation(), new Vector3(0, 0, -1));
 
         if (Fuel <= 0)
         {
