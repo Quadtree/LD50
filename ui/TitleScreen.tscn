@@ -37,6 +37,22 @@ custom_fonts/font = ExtResource( 2 )
 text = "Made by Quadtree for Ludum Dare 50"
 align = 2
 valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+anchor_left = 0.2
+anchor_top = 0.82
+anchor_right = 0.8
+anchor_bottom = 0.861
+custom_fonts/font = ExtResource( 2 )
+text = "Hover over a mission type to see details."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label3" parent="." instance=ExtResource( 4 )]
 

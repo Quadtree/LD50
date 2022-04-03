@@ -47,7 +47,11 @@ public class Minimap : Control
             else
             {
                 var pos = it.Key.GetGlobalLocation();
-                it.Value.RectPosition = new Vector2(pos.x * 0.8f + 150, pos.z * 0.8f + 150);
+
+                it.Value.RectPosition = new Vector2(
+                    Util.Clamp(pos.x * 0.8f + 150, 20, 280),
+                    Util.Clamp(pos.z * 0.8f + 150, 20, 280)
+                );
 
                 if (it.Key is Planet && !((Planet)it.Key).IsSun && ((Planet)it.Key).Battery <= 0)
                 {
