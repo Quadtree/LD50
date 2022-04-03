@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/BatteryLabel.cs" type="Script" id=1]
 [ext_resource path="res://ui/FuelLabel.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://textures/star.png" type="Texture" id=4]
 [ext_resource path="res://textures/ship.png" type="Texture" id=5]
 [ext_resource path="res://ui/Minimap.cs" type="Script" id=6]
+[ext_resource path="res://ui/FPSLabel.cs" type="Script" id=7]
 
 [node name="InGameUI" type="Control"]
 anchor_right = 1.0
@@ -21,6 +22,17 @@ margin_right = 118.0
 margin_bottom = 36.0
 text = "Battery: 00"
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 150.0
+margin_top = 17.0
+margin_right = 251.0
+margin_bottom = 36.0
+text = "Battery: 00"
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
