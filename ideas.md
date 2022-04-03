@@ -9,12 +9,9 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Evasion mission type
-- Collection mission type
-- Sound
 - Custom button graphics
+- Improved ingame UI, bars, etc
 - Music
-- Explosion on death
 
 # Done
 - Various levels of atmospheric thickness
@@ -31,3 +28,7 @@ Most missions would have some kind of twist:
 - Help dialog
 - Multicolor planets
 - Different mission types
+- Evasion mission type
+- Collection mission type
+- Sound
+- Explosion on death
