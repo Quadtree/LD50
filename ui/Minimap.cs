@@ -34,6 +34,7 @@ public class Minimap : Control
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>()) AddIfNotThere(it);
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Ship>()) AddIfNotThere(it);
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Drone>()) AddIfNotThere(it);
+        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Crate>()) AddIfNotThere(it);
 
         var toDelete = new Array<Spatial>();
 
@@ -54,6 +55,11 @@ public class Minimap : Control
                 }
             }
         }
+
+        foreach (var it in toDelete)
+        {
+            Objects.Remove(it);
+        }
     }
 
     void AddIfNotThere(Spatial spatial)
@@ -65,6 +71,7 @@ public class Minimap : Control
             if (spatial is Planet && ((Planet)spatial).IsSun) tex = SunTexture;
             if (spatial is Planet && !((Planet)spatial).IsSun) tex = PlanetTexture;
             if (spatial is Drone) tex = DroneTexture;
+            if (spatial is Crate) tex = CrateTexture;
 
             var rect = new TextureRect();
             rect.Texture = tex;

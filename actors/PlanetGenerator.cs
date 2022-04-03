@@ -9,6 +9,9 @@ public class PlanetGenerator : Node
     [Export]
     PackedScene DroneSpawner;
 
+    [Export]
+    PackedScene CrateTemplate;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -48,6 +51,21 @@ public class PlanetGenerator : Node
         if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Evasion)
         {
             GetTree().CurrentScene.AddChild(DroneSpawner.Instance<DroneSpawner>());
+        }
+
+        if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Collection)
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                var drone = CrateTemplate.Instance<Spatial>();
+                GetTree().CurrentScene.AddChild(drone);
+
+                drone.SetGlobalLocation(new Vector3(
+                    Util.random() * 200 - 100,
+                    0,
+                    Util.random() * 200 - 100
+                ));
+            }
         }
     }
 }

@@ -78,6 +78,13 @@ public class Ship : RigidBody
     {
         Console.WriteLine("Collision!");
 
+        if (other is Crate)
+        {
+            other.QueueFree();
+            Score += 30;
+            return;
+        }
+
         if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Collision)
         {
             var relativeVelocity = (this.LinearVelocity - ((RigidBody)other).LinearVelocity).Length();
