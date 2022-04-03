@@ -68,7 +68,7 @@ public class Ship : RigidBody
 
         foreach (var it in this.GetChildren())
         {
-            if (!(it is Camera))
+            if (!(it is Camera) && ((Node)it).Name != "Starfield")
             {
                 RemoveChild((Node)it);
             }

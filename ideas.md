@@ -9,14 +9,13 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Background starfield
-- Score keeping
 - Title screen
 - Victory screen
 - Defeat message?
 - Sound
 - Music
 - Different mission types
+- Explosion on death
 
 # Done
 - Various levels of atmospheric thickness
@@ -24,3 +23,5 @@ Most missions would have some kind of twist:
 - Fix planet surface issue
 - Accelerate time if you're out of fuel
 - Death on collision with a planet
+- Background starfield
+- Score keeping
