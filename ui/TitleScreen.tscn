@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/TitleScreen.cs" type="Script" id=1]
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 0.244
+anchor_right = 1.0
+anchor_bottom = 0.451
+margin_top = -0.52002
+margin_bottom = -0.0800476
+text = "Doomed Probe"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.626
+anchor_top = 0.938
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.0400391
+text = "Made by Quadtree for Ludum Dare 50"
+align = 2
+valign = 2
+
+[node name="Label3" type="Label" parent="."]
+anchor_left = 0.2
+anchor_top = 0.55
+anchor_right = 0.8
+anchor_bottom = 0.795
+text = "You control a surveying probe surveying a uncharted system. Try to delay the inevitable dying of your battery by collecting trace gasses from planets with blue atmospheres, but don't waste all your fuel!
+
+Controls:
+F2 - Show this help
+WASD/Arrow Keys - Thrust
+
+Click anywhere to start."
+align = 1
+valign = 1
+autowrap = true

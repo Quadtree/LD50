@@ -9,9 +9,9 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Title screen
 - Victory screen
 - Defeat message?
+- Final fonts
 - Sound
 - Music
 - Different mission types
@@ -25,3 +25,4 @@ Most missions would have some kind of twist:
 - Death on collision with a planet
 - Background starfield
 - Score keeping
+- Title screen
