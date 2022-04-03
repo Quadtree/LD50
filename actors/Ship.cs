@@ -38,6 +38,8 @@ public class Ship : RigidBody
 
     public float Score;
 
+    AudioStreamPlayer ThrusterLoop;
+
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -57,6 +59,8 @@ public class Ship : RigidBody
         Cam = this.FindChildByType<Camera>();
 
         Connect("body_entered", this, nameof(OnCollision));
+
+        ThrusterLoop = this.FindChildByName<AudioStreamPlayer>("ThrusterLoop");
     }
 
     public void Death()
@@ -72,6 +76,8 @@ public class Ship : RigidBody
         }
 
         Destroyed = true;
+
+        Util.SpawnOneShotSound("res://sounds/destroyed2.wav", this, -5f);
     }
 
     void OnCollision(Node other)
@@ -80,6 +86,7 @@ public class Ship : RigidBody
 
         if (other is Crate)
         {
+            Util.SpawnOneShotSound("res://sounds/crate.wav", this, -5f);
             other.QueueFree();
             Score += 30;
             return;
@@ -139,6 +146,15 @@ public class Ship : RigidBody
         if (Battery <= 0)
         {
             Death();
+        }
+
+        if (Control.Length() > 0 && Fuel > 0)
+        {
+            if (!ThrusterLoop.Playing) ThrusterLoop.Play();
+        }
+        else
+        {
+            if (ThrusterLoop.Playing) ThrusterLoop.Stop();
         }
     }
 

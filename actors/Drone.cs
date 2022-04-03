@@ -40,6 +40,8 @@ public class Drone : RigidBody
             ((Ship)other).Death();
         }
 
+        Util.SpawnOneShotSound("res://sounds/destroyed.wav", this, this.GetGlobalLocation());
+
         QueueFree();
     }
 }

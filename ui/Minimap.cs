@@ -40,7 +40,7 @@ public class Minimap : Control
 
         foreach (var it in Objects)
         {
-            if (!it.Key.IsInstanceValid())
+            if (!it.Key.IsInstanceValid() || it.Key.GetParent() == null)
             {
                 toDelete.Add(it.Key);
             }
