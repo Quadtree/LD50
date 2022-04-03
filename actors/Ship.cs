@@ -240,7 +240,7 @@ public class Ship : RigidBody
         if (OS.GetName() == "HTML5") substeps = 1;
         delta /= substeps;
 
-        var planets = GetTree().CurrentScene.FindChildrenByType<Planet>();
+        var planets = GetTree().CurrentScene.FindChildrenByType<Planet>().OrderBy(it => it.GetGlobalLocation().DistanceSquaredTo(pos)).Take(2);
 
         var nearestPlanet = planets.MinBy(it => (int)it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation()));
         //Console.WriteLine($"{nearestPlanet.OrbitalVelocity} {vel}");
