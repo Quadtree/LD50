@@ -39,3 +39,45 @@ align = 2
 valign = 2
 
 [node name="Label3" parent="." instance=ExtResource( 4 )]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 0.877
+anchor_right = 1.0
+anchor_bottom = 0.935
+custom_constants/separation = 40
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StdMission" type="Button" parent="HBoxContainer"]
+margin_left = 377.0
+margin_right = 648.0
+margin_bottom = 62.0
+hint_tooltip = "Survive for as long as possible."
+custom_fonts/font = ExtResource( 2 )
+text = "   Standard Mission   "
+
+[node name="EvsMission" type="Button" parent="HBoxContainer"]
+margin_left = 688.0
+margin_right = 939.0
+margin_bottom = 62.0
+hint_tooltip = "Survive for as long as possible while avoiding the drones."
+custom_fonts/font = ExtResource( 2 )
+text = "   Evasion Mission   "
+
+[node name="ClcMission" type="Button" parent="HBoxContainer"]
+margin_left = 979.0
+margin_right = 1251.0
+margin_bottom = 62.0
+hint_tooltip = "Collect as many crates while surviving for as long as possible."
+custom_fonts/font = ExtResource( 2 )
+text = "   Collection Mission   "
+
+[node name="ColMission" type="Button" parent="HBoxContainer"]
+margin_left = 1291.0
+margin_right = 1542.0
+margin_bottom = 62.0
+hint_tooltip = "Get as much battery power as you can, then crash into a planet at high speed for maximum score."
+custom_fonts/font = ExtResource( 2 )
+text = "   Collision Mission   "

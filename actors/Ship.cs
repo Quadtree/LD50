@@ -81,6 +81,14 @@ public class Ship : RigidBody
     {
         Console.WriteLine("Collision!");
 
+        if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Collision)
+        {
+            var relativeVelocity = (this.LinearVelocity - ((RigidBody)other).LinearVelocity).Length();
+            // 8 or so is a good speed
+
+            Score += relativeVelocity * Battery / 3;
+        }
+
         Death();
     }
 

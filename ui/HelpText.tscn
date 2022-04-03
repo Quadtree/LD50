@@ -13,9 +13,7 @@ text = "You control a surveying probe surveying a uncharted system. Try to delay
 Controls:
 F2 - Show this help
 R - Return to title
-WASD/Arrow Keys - Thrust
-
-Click anywhere to continue."
+WASD/Arrow Keys - Thrust"
 align = 1
 valign = 1
 autowrap = true
