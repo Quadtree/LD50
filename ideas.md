@@ -9,7 +9,7 @@ Most missions would have some kind of twist:
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
 # TODO
-- Music
+
 
 # Done
 - Various levels of atmospheric thickness
@@ -32,3 +32,4 @@ Most missions would have some kind of twist:
 - Explosion on death
 - Improved ingame UI, bars, etc
 - Custom button graphics
+- Music
