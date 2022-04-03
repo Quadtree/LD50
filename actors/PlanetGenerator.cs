@@ -20,6 +20,9 @@ public class PlanetGenerator : Node
 
     void CreatePlanets()
     {
+        var sun = GetTree().CurrentScene.FindChildByName<Planet>("Sun");
+        Console.WriteLine($"Sun: mass={sun.Mass}");
+
         for (int i = 0; i < 7; ++i)
         {
             var planet = PlanetTemplate.Instance<Planet>();
@@ -45,7 +48,7 @@ public class PlanetGenerator : Node
             planet.MaxBattery = atmoMass;
             planet.Mass = mass * 150;
 
-            Console.WriteLine($"Planet Created: radius={radius} mass={mass} battery={planet.Battery}/{planet.MaxBattery}");
+            Console.WriteLine($"Planet Created: radius={radius} mass={planet.Mass} battery={planet.Battery}/{planet.MaxBattery}");
         }
 
         if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Evasion)

@@ -8,6 +8,14 @@ Most missions would have some kind of twist:
 - Carry: Grab orbiting objects and bring them to the portal.
 - Scan: Fly through the middle of gas planets to get something. Do it as many times as you can!
 
+## Names
+- Doomed Probe
+- Scanner Probe
+- Expenable Probe
+- Gas Probe
+- Skimmer Probe
+- 
+
 # TODO
 
 
@@ -33,3 +41,4 @@ Most missions would have some kind of twist:
 - Improved ingame UI, bars, etc
 - Custom button graphics
 - Music
+
