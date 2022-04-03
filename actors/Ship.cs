@@ -16,7 +16,7 @@ public class Ship : RigidBody
     public float GravityConstant = 0.01f;
 
     [Export]
-    float DragConstant = 0.3f;
+    float DragConstant = 0.6f;
 
     [Export]
     float ThrustMultiplier = 6f;
@@ -89,11 +89,11 @@ public class Ship : RigidBody
 
         if (Destroyed)
         {
+            Engine.TimeScale = 1f;
             RespawnTimer += delta;
 
             if (RespawnTimer >= 3.5f)
             {
-                Engine.TimeScale = 1f;
                 GetTree().ChangeScene("res://maps/default.tscn");
                 RespawnTimer = 0;
             }
@@ -173,6 +173,7 @@ public class Ship : RigidBody
         bool crashed = false;
 
         var substeps = 12;
+        if (OS.GetName() == "HTML5") substeps = 1;
         delta /= substeps;
 
         var planets = GetTree().CurrentScene.FindChildrenByType<Planet>();
@@ -194,12 +195,12 @@ public class Ship : RigidBody
                         var dist = diff.Length();
                         vel += (diff.Normalized() * delta * it.Mass * GravityConstant / (dist * dist));
 
-                        if (dist / it.Scale.x < 1.5f)
+                        if (dist < it.AtmoRadius)
                         {
                             vel += (-(LinearVelocity - it.OrbitalVelocity) * delta * DragConstant * it.AtmoThickness) / Mass;
                         }
 
-                        if (dist / it.Scale.x < 0.8f)
+                        if (dist < it.RockyRadius)
                         {
                             crashed = true;
                         }

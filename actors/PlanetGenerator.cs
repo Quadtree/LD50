@@ -14,7 +14,7 @@ public class PlanetGenerator : Node
 
     void CreatePlanets()
     {
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 7; ++i)
         {
             var planet = PlanetTemplate.Instance<Planet>();
 
