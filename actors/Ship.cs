@@ -112,6 +112,8 @@ public class Ship : RigidBody
     {
         EnsurePlanets();
 
+        Util.SpeedUpPhysicsIfNeeded();
+
         Cam.LookAt(this.GetGlobalLocation(), new Vector3(0, 0, -1));
 
         if (Destroyed)
