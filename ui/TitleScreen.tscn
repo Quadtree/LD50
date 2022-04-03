@@ -1,14 +1,23 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/TitleScreen.cs" type="Script" id=1]
 [ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/x_large.tres" type="DynamicFont" id=3]
 [ext_resource path="res://ui/HelpText.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/main_theme.tres" type="Theme" id=5]
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.113725, 0.133333, 0.141176, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,33 +76,36 @@ __meta__ = {
 }
 
 [node name="StdMission" type="Button" parent="HBoxContainer"]
-margin_left = 377.0
-margin_right = 648.0
-margin_bottom = 62.0
+margin_left = 321.0
+margin_right = 620.0
+margin_bottom = 65.0
 hint_tooltip = "Survive for as long as possible."
-custom_fonts/font = ExtResource( 2 )
+theme = ExtResource( 5 )
 text = "   Standard Mission   "
 
 [node name="EvsMission" type="Button" parent="HBoxContainer"]
-margin_left = 688.0
+margin_left = 660.0
 margin_right = 939.0
-margin_bottom = 62.0
+margin_bottom = 65.0
 hint_tooltip = "Survive for as long as possible while avoiding the drones."
+theme = ExtResource( 5 )
 custom_fonts/font = ExtResource( 2 )
 text = "   Evasion Mission   "
 
 [node name="ClcMission" type="Button" parent="HBoxContainer"]
 margin_left = 979.0
-margin_right = 1251.0
-margin_bottom = 62.0
+margin_right = 1279.0
+margin_bottom = 65.0
 hint_tooltip = "Collect as many crates while surviving for as long as possible."
+theme = ExtResource( 5 )
 custom_fonts/font = ExtResource( 2 )
 text = "   Collection Mission   "
 
 [node name="ColMission" type="Button" parent="HBoxContainer"]
-margin_left = 1291.0
-margin_right = 1542.0
-margin_bottom = 62.0
+margin_left = 1319.0
+margin_right = 1598.0
+margin_bottom = 65.0
 hint_tooltip = "Get as much battery power as you can, then crash into a planet at high speed for maximum score."
+theme = ExtResource( 5 )
 custom_fonts/font = ExtResource( 2 )
 text = "   Collision Mission   "
