@@ -16,5 +16,20 @@ public class Drone : RigidBody
     public override void _PhysicsProcess(float delta)
     {
         Ship.ApplyGravityAndDrag(this, delta);
+
+        var target = GetTree().CurrentScene.FindChildByType<Ship>();
+        if (target != null)
+        {
+            var desiredVel = (target.GetGlobalLocation() - this.GetGlobalLocation()).Normalized() * 9;
+
+            var diffFromCurrent = desiredVel - LinearVelocity;
+
+            if (diffFromCurrent.Length() >= 0.5f)
+            {
+                var thrustVector = diffFromCurrent.Normalized() * 4 * delta;
+
+                ApplyCentralImpulse(thrustVector);
+            }
+        }
     }
 }
