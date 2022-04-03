@@ -1,3 +1,8 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/DroneSpawner.cs" type="Script" id=1]
+[ext_resource path="res://actors/Drone.tscn" type="PackedScene" id=2]
 
 [node name="DroneSpawner" type="Node"]
+script = ExtResource( 1 )
+DroneType = ExtResource( 2 )

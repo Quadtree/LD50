@@ -6,6 +6,9 @@ public class PlanetGenerator : Node
     [Export]
     PackedScene PlanetTemplate;
 
+    [Export]
+    PackedScene DroneSpawner;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -40,6 +43,11 @@ public class PlanetGenerator : Node
             planet.Mass = mass * 150;
 
             Console.WriteLine($"Planet Created: radius={radius} mass={mass} battery={planet.Battery}/{planet.MaxBattery}");
+        }
+
+        if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Evasion)
+        {
+            GetTree().CurrentScene.AddChild(DroneSpawner.Instance<DroneSpawner>());
         }
     }
 }

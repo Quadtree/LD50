@@ -13,6 +13,12 @@ public class Minimap : Control
     [Export]
     Texture ShipTexture;
 
+    [Export]
+    Texture DroneTexture;
+
+    [Export]
+    Texture CrateTexture;
+
     Dictionary<Spatial, TextureRect> Objects = new Dictionary<Spatial, TextureRect>();
 
     // Called when the node enters the scene tree for the first time.
@@ -27,6 +33,7 @@ public class Minimap : Control
         // TODO: Perf check this
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>()) AddIfNotThere(it);
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Ship>()) AddIfNotThere(it);
+        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Drone>()) AddIfNotThere(it);
 
         var toDelete = new Array<Spatial>();
 
@@ -57,6 +64,7 @@ public class Minimap : Control
 
             if (spatial is Planet && ((Planet)spatial).IsSun) tex = SunTexture;
             if (spatial is Planet && !((Planet)spatial).IsSun) tex = PlanetTexture;
+            if (spatial is Drone) tex = DroneTexture;
 
             var rect = new TextureRect();
             rect.Texture = tex;

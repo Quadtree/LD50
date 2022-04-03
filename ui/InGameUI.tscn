@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://ui/BatteryLabel.cs" type="Script" id=1]
 [ext_resource path="res://ui/FuelLabel.cs" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://ui/ScoreLabel.cs" type="Script" id=8]
 [ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=9]
 [ext_resource path="res://ui/InGameUI.cs" type="Script" id=10]
+[ext_resource path="res://textures/crate.png" type="Texture" id=11]
+[ext_resource path="res://textures/drone.png" type="Texture" id=12]
 
 [node name="InGameUI" type="Control"]
 anchor_right = 1.0
@@ -76,6 +78,8 @@ __meta__ = {
 PlanetTexture = ExtResource( 3 )
 SunTexture = ExtResource( 4 )
 ShipTexture = ExtResource( 5 )
+DroneTexture = ExtResource( 12 )
+CrateTexture = ExtResource( 11 )
 
 [node name="ColorRect" type="ColorRect" parent="Minimap"]
 margin_right = 300.0
