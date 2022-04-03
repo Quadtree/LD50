@@ -21,7 +21,7 @@ public class Ship : RigidBody
     float ThrustMultiplier = 6f;
 
     [Export]
-    public float Fuel = 15f;
+    public float Fuel = 20f;
 
     [Export]
     public float Battery = 30f;
@@ -43,6 +43,8 @@ public class Ship : RigidBody
     AudioStreamPlayer ChargeLoop;
 
     float BatteryGained = 0;
+
+    float FutureUpdateCharge = 0;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -166,7 +168,13 @@ public class Ship : RigidBody
             if (ThrusterLoop.Playing) ThrusterLoop.Stop();
         }
 
-        if (FutureUpdater == null || !FutureUpdater.MoveNext()) FutureUpdater = UpdateFutureMoves().GetEnumerator();
+        FutureUpdateCharge += delta;
+
+        while (FutureUpdateCharge > 0)
+        {
+            if (FutureUpdater == null || !FutureUpdater.MoveNext()) FutureUpdater = UpdateFutureMoves().GetEnumerator();
+            FutureUpdateCharge -= 1f / 60f / 16f * Engine.TimeScale;
+        }
     }
 
     public override void _PhysicsProcess(float delta)

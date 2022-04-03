@@ -6,7 +6,7 @@ public class InGameUI : Control
 {
     public override void _Ready()
     {
-        if (GetTree().Root.FindChildByName<Node>("BGM") == null)
+        if (GetTree().Root.FindChildByName<Node>("BGM") == null && !OS.IsDebugBuild())
         {
             var bgm = new AudioStreamPlayer();
             GetTree().Root.AddChild(bgm);
