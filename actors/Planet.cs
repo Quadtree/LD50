@@ -46,10 +46,13 @@ public class Planet : RigidBody
 
     public float RotationRate = Util.random();
 
+    [Export]
+    Material RockyOverrideMaterial;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-
+        if (RockyOverrideMaterial != null) this.FindChildByName<MeshInstance>("MeshInstance").MaterialOverride = RockyOverrideMaterial;
     }
 
     public void InitPlanetSize(float rockyRadius, float atmoRadius, float orbitalDistance, float orbitalAngle, float atmoThickness)
