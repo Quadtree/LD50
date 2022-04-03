@@ -10,7 +10,6 @@ Most missions would have some kind of twist:
 
 # TODO
 - Custom button graphics
-- Improved ingame UI, bars, etc
 - Music
 
 # Done
@@ -32,3 +31,4 @@ Most missions would have some kind of twist:
 - Collection mission type
 - Sound
 - Explosion on death
+- Improved ingame UI, bars, etc
