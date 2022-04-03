@@ -22,7 +22,7 @@ public class DefeatDialog : PopupDialog
 
         if (@event is InputEventMouseButton && Visible && Time >= 1)
         {
-            GetTree().ChangeScene("res://maps/default.tscn");
+            GetTree().ChangeScene("res://UI/TitleScreen.tscn");
         }
     }
 }
