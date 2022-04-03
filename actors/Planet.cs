@@ -115,7 +115,7 @@ public class Planet : RigidBody
             CurrentOrbitAngle = (OrbitalPrimary.GetGlobalLocation() - this.GetGlobalLocation()).Normalized().SignedAngleTo(new Vector3(-1, 0, 0), new Vector3(0, 1, 0));
             Console.WriteLine(CurrentOrbitAngle);
 
-            var gravConst = GetTree().CurrentScene.FindChildByType<Ship>().GravityConstant;
+            var gravConst = Ship.GravityConstant;
 
             float orbitalPeriod = 2 * Mathf.Pi * Mathf.Sqrt((Mathf.Pow(OrbitalDistance, 3) / (gravConst * OrbitalPrimary.Mass)));
 

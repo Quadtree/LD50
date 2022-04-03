@@ -12,11 +12,9 @@ public class Ship : RigidBody
 
     MeshInstance[] FutureMoves = new MeshInstance[16];
 
-    [Export]
-    public float GravityConstant = 0.01f;
+    public static float GravityConstant = 0.01f;
 
-    [Export]
-    float DragConstant = 0.6f;
+    public static float DragConstant = 0.6f;
 
     [Export]
     float ThrustMultiplier = 6f;
@@ -30,8 +28,7 @@ public class Ship : RigidBody
     [Export]
     public float MaxBattery = 500f;
 
-    [Export]
-    public float BatteryChargeRate = 2f;
+    public static float BatteryChargeRate = 2f;
 
     Camera Cam;
 
@@ -163,21 +160,31 @@ public class Ship : RigidBody
             Fuel = 0;
         }
 
-        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>())
+        ApplyGravityAndDrag(this, delta);
+    }
+
+    public static void ApplyGravityAndDrag(RigidBody target, float delta)
+    {
+        foreach (var it in target.GetTree().CurrentScene.FindChildrenByType<Planet>())
         {
-            var diff = (it.Translation - Translation);
+            var diff = (it.Translation - target.Translation);
             var dist = diff.Length();
-            ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant * it.Mass * Mass / (dist * dist));
+            target.ApplyCentralImpulse(diff.Normalized() * delta * GravityConstant * it.Mass * target.Mass / (dist * dist));
             //Console.WriteLine(dist);
 
             if (dist < it.AtmoRadius)
             {
-                ApplyCentralImpulse(-(LinearVelocity - it.OrbitalVelocity) * delta * DragConstant * it.AtmoThickness);
+                target.ApplyCentralImpulse(-(target.LinearVelocity - it.OrbitalVelocity) * delta * DragConstant * it.AtmoThickness);
 
-                var gained = Math.Max(Math.Min(Math.Min(delta * LinearVelocity.Length() * BatteryChargeRate, MaxBattery - Battery), it.Battery), 0);
+                if (target is Ship)
+                {
+                    var ship = (Ship)target;
 
-                Battery += gained;
-                it.Battery -= gained;
+                    var gained = Math.Max(Math.Min(Math.Min(delta * target.LinearVelocity.Length() * BatteryChargeRate, ship.MaxBattery - ship.Battery), it.Battery), 0);
+
+                    ship.Battery += gained;
+                    it.Battery -= gained;
+                }
             }
         }
     }

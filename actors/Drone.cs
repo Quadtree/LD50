@@ -12,4 +12,9 @@ public class Drone : RigidBody
     {
 
     }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        Ship.ApplyGravityAndDrag(this, delta);
+    }
 }
