@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://ui/BatteryLabel.cs" type="Script" id=1]
 [ext_resource path="res://ui/FuelLabel.cs" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://ui/InGameUI.cs" type="Script" id=10]
 [ext_resource path="res://textures/crate.png" type="Texture" id=11]
 [ext_resource path="res://textures/drone.png" type="Texture" id=12]
+[ext_resource path="res://ui/MissionBox.cs" type="Script" id=13]
 
 [node name="InGameUI" type="Control"]
 anchor_right = 1.0
@@ -85,6 +86,20 @@ margin_bottom = 112.0
 custom_fonts/font = ExtResource( 9 )
 text = "FPS: 00"
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissionBox" type="Label" parent="."]
+anchor_left = 0.4
+anchor_right = 0.601
+anchor_bottom = 0.094
+margin_top = 20.0
+custom_fonts/font = ExtResource( 9 )
+text = "Mission:"
+align = 1
+autowrap = true
+script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
