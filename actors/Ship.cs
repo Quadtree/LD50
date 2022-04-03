@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 
 public class Ship : RigidBody
@@ -107,6 +108,8 @@ public class Ship : RigidBody
         Death();
     }
 
+    System.Collections.Generic.IEnumerator<object> FutureUpdater;
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
@@ -162,6 +165,8 @@ public class Ship : RigidBody
         {
             if (ThrusterLoop.Playing) ThrusterLoop.Stop();
         }
+
+        if (FutureUpdater == null || !FutureUpdater.MoveNext()) FutureUpdater = UpdateFutureMoves().GetEnumerator();
     }
 
     public override void _PhysicsProcess(float delta)
@@ -224,7 +229,7 @@ public class Ship : RigidBody
         }
     }
 
-    void UpdateFutureMoves()
+    System.Collections.Generic.IEnumerable<object> UpdateFutureMoves()
     {
         var pos = this.GetGlobalLocation();
         var vel = this.LinearVelocity;
@@ -267,6 +272,8 @@ public class Ship : RigidBody
 
                     pos += vel * delta;
                 }
+
+                yield return i;
             }
 
             FutureMoves[i].SetGlobalLocation(pos);
