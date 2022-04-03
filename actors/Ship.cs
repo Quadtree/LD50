@@ -39,6 +39,9 @@ public class Ship : RigidBody
     public float Score;
 
     AudioStreamPlayer ThrusterLoop;
+    AudioStreamPlayer ChargeLoop;
+
+    float BatteryGained = 0;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -61,6 +64,7 @@ public class Ship : RigidBody
         Connect("body_entered", this, nameof(OnCollision));
 
         ThrusterLoop = this.FindChildByName<AudioStreamPlayer>("ThrusterLoop");
+        ChargeLoop = this.FindChildByName<AudioStreamPlayer>("ChargeBattery");
     }
 
     public void Death()
@@ -183,7 +187,11 @@ public class Ship : RigidBody
             Fuel = 0;
         }
 
+        BatteryGained = 0;
         ApplyGravityAndDrag(this, delta);
+
+        if (BatteryGained > 0 && !ChargeLoop.Playing) ChargeLoop.Play();
+        if (BatteryGained <= 0 && ChargeLoop.Playing) ChargeLoop.Stop();
     }
 
     public static void ApplyGravityAndDrag(RigidBody target, float delta)
@@ -207,6 +215,8 @@ public class Ship : RigidBody
 
                     ship.Battery += gained;
                     it.Battery -= gained;
+
+                    ship.BatteryGained += gained;
                 }
             }
         }

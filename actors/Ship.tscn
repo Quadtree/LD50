@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://actors/Ship.cs" type="Script" id=1]
 [ext_resource path="res://textures/starfield.png" type="Texture" id=2]
 [ext_resource path="res://sounds/thruster_loop.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds/charge_battery.wav" type="AudioStream" id=4]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.25, 0.25, 0.25 )
@@ -61,3 +62,7 @@ material/0 = SubResource( 5 )
 [node name="ThrusterLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -20.0
+
+[node name="ChargeBattery" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
