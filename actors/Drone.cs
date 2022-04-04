@@ -42,6 +42,7 @@ public class Drone : RigidBody
 
         Util.SpawnOneShotSound("res://sounds/destroyed.wav", this, this.GetGlobalLocation());
 
+        Minimap.DeleteFromMinimap(this);
         QueueFree();
     }
 }

@@ -94,6 +94,7 @@ public class Ship : RigidBody
         if (other is Crate)
         {
             Util.SpawnOneShotSound("res://sounds/crate.wav", this, -5f);
+            Minimap.DeleteFromMinimap((Crate)other);
             other.QueueFree();
             Score += 30;
             return;

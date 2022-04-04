@@ -21,6 +21,8 @@ public class Minimap : Control
 
     Dictionary<Spatial, TextureRect> Objects = new Dictionary<Spatial, TextureRect>();
 
+    Array<string> Deleted = new Array<string>();
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -32,17 +34,15 @@ public class Minimap : Control
     {
         // TODO: Perf check this
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Planet>()) AddIfNotThere(it);
-        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Ship>()) AddIfNotThere(it);
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Drone>()) AddIfNotThere(it);
         foreach (var it in GetTree().CurrentScene.FindChildrenByType<Crate>()) AddIfNotThere(it);
-
-        var toDelete = new Array<Spatial>();
+        foreach (var it in GetTree().CurrentScene.FindChildrenByType<Ship>()) AddIfNotThere(it);
 
         foreach (var it in Objects)
         {
             if (!it.Key.IsInstanceValid() || it.Key.GetParent() == null)
             {
-                toDelete.Add(it.Key);
+                // nop
             }
             else
             {
@@ -60,15 +60,25 @@ public class Minimap : Control
             }
         }
 
-        foreach (var it in toDelete)
-        {
-            Objects.Remove(it);
-        }
+        Deleted.Clear();
+    }
+
+    public static void DeleteFromMinimap(Spatial toDelete)
+    {
+        var mmp = toDelete.GetTree().CurrentScene.FindChildByType<Minimap>();
+
+        Console.WriteLine("DELETING " + mmp.Objects[toDelete] + " NAME: " + toDelete.Name);
+        mmp.Objects[toDelete].QueueFree();
+        mmp.Objects.Remove(toDelete);
+
+        mmp.Deleted.Add(toDelete.Name);
     }
 
     void AddIfNotThere(Spatial spatial)
     {
-        if (!Objects.ContainsKey(spatial))
+        if (spatial == null) throw new Exception("Huh?");
+
+        if (!Objects.ContainsKey(spatial) && spatial.IsInstanceValid() && spatial.GetParent() != null && !Deleted.Contains(spatial.Name))
         {
             var tex = ShipTexture;
 
@@ -83,6 +93,8 @@ public class Minimap : Control
             AddChild(rect);
 
             Objects[spatial] = rect;
+
+            Console.WriteLine("Created minimap " + rect);
         }
     }
 }
