@@ -239,7 +239,7 @@ public class Ship : RigidBody
 
     System.Collections.Generic.IEnumerable<object> UpdateFutureMoves()
     {
-        var pos = this.GetGlobalLocation();
+        var pos = new Vector3(0, 0, 0);
         var vel = this.LinearVelocity;
         float delta = 1f / 5f;
         bool crashed = false;
@@ -248,7 +248,7 @@ public class Ship : RigidBody
         if (OS.GetName() == "HTML5") substeps = 1;
         delta /= substeps;
 
-        var planets = GetTree().CurrentScene.FindChildrenByType<Planet>().OrderBy(it => it.GetGlobalLocation().DistanceSquaredTo(pos)).Take(2);
+        var planets = GetTree().CurrentScene.FindChildrenByType<Planet>().OrderBy(it => it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation())).Take(2);
 
         var nearestPlanet = planets.MinBy(it => (int)it.GetGlobalLocation().DistanceSquaredTo(this.GetGlobalLocation()));
         //Console.WriteLine($"{nearestPlanet.OrbitalVelocity} {vel}");
@@ -263,7 +263,7 @@ public class Ship : RigidBody
                 {
                     foreach (var it in planets)
                     {
-                        var diff = (it.Translation - pos);
+                        var diff = (it.Translation - (pos + this.GetGlobalLocation()));
                         var dist = diff.Length();
                         vel += (diff.Normalized() * delta * it.Mass * GravityConstant / (dist * dist));
 
@@ -280,11 +280,11 @@ public class Ship : RigidBody
 
                     pos += vel * delta;
                 }
-
-                yield return i;
             }
 
-            FutureMoves[i].SetGlobalLocation(pos);
+            FutureMoves[i].Translation = pos;
+
+            if (!crashed) yield return i;
         }
     }
 
