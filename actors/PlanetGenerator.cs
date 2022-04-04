@@ -58,7 +58,7 @@ public class PlanetGenerator : Node
 
         if (TitleScreen.MissionType == TitleScreen.MissionTypeEnum.Collection)
         {
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 5; ++i)
             {
                 var drone = CrateTemplate.Instance<Spatial>();
                 GetTree().CurrentScene.AddChild(drone);
