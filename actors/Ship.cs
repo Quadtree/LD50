@@ -176,6 +176,8 @@ public class Ship : RigidBody
             if (FutureUpdater == null || !FutureUpdater.MoveNext()) FutureUpdater = UpdateFutureMoves().GetEnumerator();
             FutureUpdateCharge -= 1f / 60f / 16f * Engine.TimeScale;
         }
+
+        if (Input.IsActionJustPressed("screenshot") && OS.IsDebugBuild()) Util.TakeScreenshot(this);
     }
 
     public override void _PhysicsProcess(float delta)
