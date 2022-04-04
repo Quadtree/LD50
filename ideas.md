@@ -14,7 +14,10 @@ Most missions would have some kind of twist:
 - Expenable Probe
 - Gas Probe
 - Skimmer Probe
-- 
+- Slingshot Probe
+- Limited Seeker
+- Limited Probe
+
 
 # TODO
 

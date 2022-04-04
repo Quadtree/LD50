@@ -29,9 +29,12 @@ anchor_bottom = 0.451
 margin_top = -0.52002
 margin_bottom = -0.0800476
 custom_fonts/font = ExtResource( 3 )
-text = "Doomed Probe"
+text = "Slingshot Probe"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="."]
 anchor_left = 0.626
